@@ -1,0 +1,45 @@
+import mysql.connector as mc
+def main_menu():
+    ch='y'
+    while ch=='y':
+        print('1:To display the records from the table')
+        print('2:To update a record from the table')
+        print('3:To delete a record')
+        print('4:To quit')
+        c=int(input('Enter your choice:'))
+        if c==1:
+            dis_rec()
+        elif c==2:
+            up_rec()
+        elif c==3:
+            del_rec()
+        elif c==4:
+            print('Quitting')
+            break
+        else:
+            print('Wrong choice')
+            break
+        ch=input('Do you wnat to continue:')
+def up_rec():
+    db=mc.connect(host='localhost',user='root',passwd='dav123',database='swarup')
+    c=db.cursor()
+    rno=int(input('Enter the roll no:'))
+    m=int(input('Enter the marks:'))
+    s='Alter swarup set marks={m} where roll={rno}'
+    val=(rno,m)
+    c.execute(s,val)
+    print(c.rowcount,'Record Updated')
+    db.commit()
+    db.close()
+def del_rec():
+    db=mc.connect(host='localhost',user='root',passwd='dav123',database='swarup')
+    c=db.cursor()
+    c.execute('Delete *from swarup where roll={rno}')
+    db.commit()
+def dis_rec():
+    db=mc.connect(host='localhost',user='root',passwd='dav123',database='swarup')
+    c=db.cursor()
+    c.execute('Select *from swarup')
+    for i in c:
+        print(i)
+main_menu()
