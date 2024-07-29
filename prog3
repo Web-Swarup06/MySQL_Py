@@ -1,0 +1,44 @@
+import mysql.connector as mc
+def main_menu():
+    ch='y'
+    while ch=='y':
+        print('1:To display the records from the table')
+        print('2:To sort the table contents')
+        print('3:To group records')
+        print('4:To quit')
+        c=int(input('Enter your choice:'))
+        if c==1:
+            dis_rec()
+        elif c==2:
+            sort())
+        elif c==3:
+            gr_rec()
+        elif c==4:
+            print('Quitting')
+            break
+        else:
+            print('Wrong choice')
+            break
+        ch=input('Do you wnat to continue:')
+def sort():
+    db=mc.connect(host='localhost',user='root',passwd='dav123',database='swarup')
+    c=db.cursor()
+    s=input('How you want to order data?')
+    c.execute('Select *from swarup order by {s}')
+    r=c.fetchall()
+    for x in r:
+        print()
+def gr_rec():
+    db=mc.connect(host='localhost',user='root',passwd='dav123',database='swarup')
+    c=db.cursor()
+    c.execute()
+    r=c.fetchall()
+    for x in r:
+        print()
+def dis_rec():
+    db=mc.connect(host='localhost',user='root',passwd='dav123',database='swarup')
+    c=db.cursor()
+    c.execute('Select *from swarup')
+    for i in c:
+        print(i)
+main_menu()
