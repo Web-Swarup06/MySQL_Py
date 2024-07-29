@@ -1,0 +1,38 @@
+import mysql.connector as mc
+def main_menu():
+    ch='y'
+    while ch=='y':
+        print('1:To add records to the table')
+        print('2:To display records from the table')
+        print('3:To quit')
+        c=int(input('Enter your choice:'))
+        if c==1:
+            add_rec()
+        elif c==2:
+            dis_rec()
+        elif c==3:
+            print('Quitting')
+            break
+        else:
+            print('Wrong choice')
+            break
+        ch=input('Do you wnat to continue:')
+def add_rec():
+    db=mc.connect(host='localhost',user='root',passwd='dav123',database='swarup')
+    c=db.cursor()
+    n=int(input('How many records?'))
+    for i in range(n):
+        rn=int(input('Enter the roll no:'))
+        nm=input('Enter the name:')
+        m=int(input('Enter the marks:'))
+        s="Insert into swarup values({},'{}',{})".format(rn,nm,m)
+        c.execute(s)
+        db.commit()
+    db.close()
+def dis_rec():
+    db=mc.connect(host='localhost',user='root',passwd='dav123',database='swarup')
+    c=db.cursor()
+    c.execute('Select *from swarup')
+    for i in c:
+        print(i)
+main_menu()
